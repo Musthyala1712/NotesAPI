@@ -32,7 +32,7 @@ public class NotesController {
     }
 
     @DeleteMapping
-    public ResponseEntity<ResponseBase> delete() {
+    public ResponseEntity<ResponseBase> del() {
         ResponseBase responseBase = noteService.info();
         return ResponseEntity.ok(responseBase);
     }
