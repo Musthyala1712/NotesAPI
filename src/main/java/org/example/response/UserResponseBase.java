@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ResponseBase<T> {
+public class UserResponseBase<T> {
     private boolean valid;
     private List<String> messages;
     private T data;
