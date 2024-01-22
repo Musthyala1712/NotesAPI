@@ -3,6 +3,8 @@ package org.example.exception;
 import org.example.response.ResponseBase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -55,6 +57,20 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ResponseBase<Void>> handleUserNotFoundException(UserNotFoundException exception, WebRequest webRequest) {
+        ResponseBase<Void> responseBase = new ResponseBase<>(false, List.of(exception.getMessage()), null);
+        return ResponseEntity.badRequest().body(responseBase);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ResponseBase<Void>> handleUserNameNotFoundException(UsernameNotFoundException exception, WebRequest webRequest) {
+        ResponseBase<Void> responseBase = new ResponseBase<>(false, List.of(exception.getMessage()), null);
+        return ResponseEntity.badRequest().body(responseBase);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ResponseBase<Void>> handleAuthenticationException(AuthenticationException exception, WebRequest webRequest) {
         ResponseBase<Void> responseBase = new ResponseBase<>(false, List.of(exception.getMessage()), null);
         return ResponseEntity.badRequest().body(responseBase);
     }
