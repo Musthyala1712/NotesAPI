@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.example.exception.JwtTokenExpiredException;
 import org.example.model.PrincipalUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,6 +42,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                         context.setAuthentication(usernamePasswordAuthenticationToken);
                         SecurityContextHolder.setContext(context);
                     }
+                    throw new JwtTokenExpiredException("Token expired");
                 }
             }
         }
