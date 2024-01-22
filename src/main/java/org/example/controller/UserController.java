@@ -6,6 +6,8 @@ import org.example.exception.UserNotFoundException;
 import org.example.model.User;
 import org.example.request.LoginRequest;
 import org.example.request.UserRequest;
+import org.example.response.ResponseBase;
+import org.example.response.TokenResponse;
 import org.example.response.UserResponseBase;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +22,16 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity<UserResponseBase<User>> signUp(@RequestBody @Valid UserRequest userRequest) throws UserAlreadyExistsException {
-        User createdUser = userService.signUp(userRequest);
-        UserResponseBase<User> responseBase = new UserResponseBase<>(true, null, createdUser);
+    public ResponseEntity<ResponseBase<TokenResponse>> signup(@RequestBody @Valid UserRequest userRequest) throws UserAlreadyExistsException {
+        TokenResponse tokenResponse = userService.signUp(userRequest);
+        ResponseBase<TokenResponse> responseBase = new ResponseBase<>(true, null, tokenResponse);
         return new ResponseEntity<>(responseBase, HttpStatus.CREATED);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<UserResponseBase<Boolean>> logIn(@RequestBody @Valid LoginRequest loginRequest) throws UserNotFoundException {
-        boolean userExists = userService.login(loginRequest);
-        UserResponseBase<Boolean> responseBase = new UserResponseBase<>(true, null, userExists);
+    @PostMapping("/login")
+    public ResponseEntity<ResponseBase<TokenResponse>> login(@RequestBody @Valid LoginRequest loginRequest) throws UserNotFoundException {
+        TokenResponse tokenResponse = userService.login(loginRequest);
+        ResponseBase<TokenResponse> responseBase = new ResponseBase<>(true, null, tokenResponse);
         return new ResponseEntity<>(responseBase, HttpStatus.OK);
     }
 
