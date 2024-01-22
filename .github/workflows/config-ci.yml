@@ -12,7 +12,7 @@ jobs:
       - name: setup JAVA
         uses: actions/setup-java@v4
         with:
-          distributions: 'oracle'
+          distribution: 'oracle'
           java-version: 17
 
       - name: build and test
@@ -28,7 +28,7 @@ jobs:
       - name: setup JAVA
         uses: actions/setup-java@v4
         with:
-          distributions: 'oracle'
+          distribution: 'oracle'
           java-version: 17
 
       - name: test
