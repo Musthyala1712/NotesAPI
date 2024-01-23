@@ -74,4 +74,11 @@ public class GlobalExceptionHandler {
         ResponseBase<Void> responseBase = new ResponseBase<>(false, List.of(exception.getMessage()), null);
         return ResponseEntity.badRequest().body(responseBase);
     }
+
+    @ExceptionHandler(JwtTokenExpiredException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ResponseBase<Void>> handleJwtTokenExpiredException(JwtTokenExpiredException exception, WebRequest webRequest) {
+        ResponseBase<Void> responseBase = new ResponseBase<>(false, List.of(exception.getMessage()), null);
+        return ResponseEntity.internalServerError().body(responseBase);
+    }
 }

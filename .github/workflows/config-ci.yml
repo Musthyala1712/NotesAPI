@@ -1,0 +1,35 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: setup JAVA
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'oracle'
+          java-version: 17
+
+      - name: build and test
+        run: mvn clean install
+
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: setup JAVA
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'oracle'
+          java-version: 17
+
+      - name: test
+        run: mvn clean test
